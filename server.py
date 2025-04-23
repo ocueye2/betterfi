@@ -1,7 +1,7 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 import os
 
-app = Flask(__name__)
+app = Flask(__name__,"/static","static")
 
 ITEMS = os.listdir("desktop")
 
@@ -18,9 +18,24 @@ def select():
     if selected:
         print(f"Running: {selected}")
         with open(os.path.join("desktop",selected,"run")) as f:
-
+            print(f"running")
             os.system(f"{f.read()} &")  # Run in background
     return jsonify({"status": "ok", "selected": selected})
 
+@app.route("/image/<name>")
+def image(name):
+    try:
+        files = os.listdir(os.path.join("desktop",name))
+        for item in files:
+            print(files)
+            if item.split(".")[0] == "logo":
+                if os.path.isfile(os.path.join("desktop",name,item)):
+                    return send_file(os.path.join("desktop",name,item),mimetype='image/png')
+                else:
+                    return send_file("other/icon.png",mimetype='image/png')
+    except:
+        print(f"{name} img not found")
+        return send_file("other/icon.png",mimetype='image/png')
+        
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True,port=2050)
