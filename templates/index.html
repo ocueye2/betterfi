@@ -139,16 +139,12 @@ justify-content: center;
         const gridItems = document.querySelectorAll(".grid-item");
 
         searchInput.addEventListener("input", () => {
-            const filter = searchInput.value.toLowerCase();
-            grid.style.transform = 'translatex(-1000px)'; // Scale up to 150%
-            setTimeout(function(){
+            const filter = searchInput.value.toLowerCase(); 
             gridItems.forEach(item => {
                 item.classList.toggle("hidden", !item.textContent.toLowerCase().includes(filter));
             });
             selectedIndex = 0;
             updateSelection();
-            grid.style.transform = 'translatex(0)'; 
-        },500);
             
         });
 
@@ -176,7 +172,7 @@ justify-content: center;
             if (!visibleItems.length) return;
 
             const firstItem = visibleItems[0];
-            const itemWidth = firstItem.offsetWidth + 5; // add gap
+            const itemWidth = firstItem.offsetWidth + 30; // add gap
             const cols = Math.floor(grid.offsetWidth / itemWidth);
 
             if (["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
@@ -187,9 +183,11 @@ justify-content: center;
                 } else if (e.key === "ArrowLeft") {
                     selectedIndex = (selectedIndex - 1 + visibleItems.length) % visibleItems.length;
                 } else if (e.key === "ArrowDown") {
-                    selectedIndex = Math.min(selectedIndex + cols, visibleItems.length - 1) - 1;
+                    selectedIndex = Math.min(selectedIndex + cols, visibleItems.length - 1);
                 } else if (e.key === "ArrowUp") {
-                    selectedIndex = Math.min(selectedIndex - cols, visibleItems.length - 1) + 1;
+                    selectedIndex = Math.max(selectedIndex - cols, 0);
+
+
                 } else if (e.key === "Enter") {
                     selectItem(visibleItems[selectedIndex].textContent.trim());
                     window.close();

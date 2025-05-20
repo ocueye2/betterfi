@@ -38,4 +38,4 @@ def image(name):
         return send_file("other/icon.png",mimetype='image/png')
         
 if __name__ == "__main__":
-    app.run(debug=True,port=2050)
+    app.run(debug=False,port=2050)
