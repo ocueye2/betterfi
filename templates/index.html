@@ -172,7 +172,7 @@ justify-content: center;
             if (!visibleItems.length) return;
 
             const firstItem = visibleItems[0];
-            const itemWidth = firstItem.offsetWidth + 30; // add gap
+            const itemWidth = firstItem.offsetWidth + 10; // add gap
             const cols = Math.floor(grid.offsetWidth / itemWidth);
 
             if (["ArrowRight", "ArrowLeft", "ArrowDown", "ArrowUp", "Enter"].includes(e.key)) {
