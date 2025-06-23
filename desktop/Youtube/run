@@ -1,1 +1,1 @@
-GDK_BACKEND=x11 surf www.youtube.com
+flatpak run rocks.shy.VacuumTube

@@ -190,7 +190,7 @@ justify-content: center;
 
                 } else if (e.key === "Enter") {
                     selectItem(visibleItems[selectedIndex].textContent.trim());
-                    window.close();
+                    
                     return;
                 }
 
@@ -204,6 +204,9 @@ justify-content: center;
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ item })
             });
+            setTimeout(function() {
+    window.close();
+}, 50);
         }
 
 

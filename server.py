@@ -3,6 +3,8 @@ import os
 
 app = Flask(__name__,"/static","static")
 
+# cache app list
+os.chdir("/home/ocueye/deskman")
 ITEMS = os.listdir("desktop")
 
 print(ITEMS)
@@ -11,8 +13,10 @@ print(ITEMS)
 def index():
     return render_template("index.html", items=ITEMS)
 
+# execute app (it probly secure as long as its keeped on localhost, oh well)
 @app.route("/select", methods=["POST"])
 def select():
+    print()
     data = request.json
     selected = data.get("item")
     if selected:
@@ -22,6 +26,8 @@ def select():
             os.system(f"{f.read()} &")  # Run in background
     return jsonify({"status": "ok", "selected": selected})
 
+
+# pull icon
 @app.route("/image/<name>")
 def image(name):
     try:
@@ -38,4 +44,4 @@ def image(name):
         return send_file("other/icon.png",mimetype='image/png')
         
 if __name__ == "__main__":
-    app.run(debug=False,port=2050)
+    app.run(debug=False,port=2050,host="127.0.0.1")
